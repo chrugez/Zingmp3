@@ -1,9 +1,12 @@
-import { MdOutlineLibraryMusic } from 'react-icons/md'
-import { PiChartLine } from 'react-icons/pi'
+import { MdOutlineLibraryMusic, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
+import { PiChartLine, PiShuffleLight } from 'react-icons/pi'
 import { TbChartArcs } from 'react-icons/tb'
 import { MdOutlineFeed } from 'react-icons/md'
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from 'react-icons/hi'
 import { FiSearch } from 'react-icons/fi'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { BiDotsHorizontalRounded, BiPlay, BiPause } from 'react-icons/bi'
+import { CiRepeat } from 'react-icons/ci'
 
 const icons = {
     MdOutlineLibraryMusic,
@@ -12,7 +15,16 @@ const icons = {
     MdOutlineFeed,
     HiArrowNarrowLeft,
     HiArrowNarrowRight,
-    FiSearch
+    FiSearch,
+    AiFillHeart,
+    AiOutlineHeart,
+    BiDotsHorizontalRounded,
+    CiRepeat,
+    MdSkipNext,
+    MdSkipPrevious,
+    PiShuffleLight,
+    BiPlay,
+    BiPause
 }
 
 export default icons

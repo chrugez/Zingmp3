@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getArrSlider } from '../ultis/fn'
+import * as action from '../store/actions'
 
 const Slider = () => {
 
     const { banner } = useSelector(state => state.app)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const sliderEls = document.getElementsByClassName('slider-item')
@@ -16,9 +18,9 @@ const Slider = () => {
             for (let i = 0; i < sliderEls.length; i++) {
 
                 // Delete className(css)
-                sliderEls[i].classList.remove('animate-slide-right', 'order-last', 'z-20')
-                sliderEls[i].classList.remove('animate-slide-left', 'order-first', 'z-10')
-                sliderEls[i].classList.remove('animate-slide-left2', 'order-2', 'z-20')
+                sliderEls[i]?.classList?.remove('animate-slide-right', 'order-last', 'z-20')
+                sliderEls[i]?.classList?.remove('animate-slide-left', 'order-first', 'z-10')
+                sliderEls[i]?.classList?.remove('animate-slide-left2', 'order-2', 'z-10')
 
                 //Hide or show images
                 if (list.some(item => item === i)) {
@@ -31,11 +33,11 @@ const Slider = () => {
             //Add animation by adding className
             list.forEach(item => {
                 if (item === max) {
-                    sliderEls[item].classList.add('animate-slide-right', 'order-last', 'z-20')
+                    sliderEls[item]?.classList?.add('animate-slide-right', 'order-last', 'z-20')
                 } else if (item === min) {
-                    sliderEls[item].classList.add('animate-slide-left', 'order-first', 'z-10')
+                    sliderEls[item]?.classList?.add('animate-slide-left', 'order-first', 'z-10')
                 } else {
-                    sliderEls[item].classList.add('animate-slide-left2', 'order-2', 'z-20')
+                    sliderEls[item]?.classList?.add('animate-slide-left2', 'order-2', 'z-10')
                 }
             })
 
@@ -48,6 +50,13 @@ const Slider = () => {
         }
     }, [])
 
+    const handleClickBanner = (item) => {
+        if (item?.type === 1) {
+            dispatch(action.setCurSongId(item.encodeId))
+            dispatch(action.play(true))
+        }
+    }
+
     return (
         <div className='w-full overflow-hidden px-[59px]'>
             <div className='flex gap-8 w-full pt-8'>
@@ -55,6 +64,7 @@ const Slider = () => {
                     <img
                         key={item.encodeId}
                         src={item.banner}
+                        onClick={() => handleClickBanner(item)}
                         className={`slider-item flex-1 object-contain w-[30%] rounded-lg ${index <= 2 ? 'block' : 'hidden'}`}
                         alt=''
                     />

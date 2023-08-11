@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { BiDotsHorizontalRounded, BiPlay, BiPause } from 'react-icons/bi'
 import { CiRepeat } from 'react-icons/ci'
+import { BsDot } from 'react-icons/bs'
 
 const icons = {
     MdOutlineLibraryMusic,
@@ -25,7 +26,8 @@ const icons = {
     PiShuffleLight,
     BiPlay,
     BiPause,
-    PiMusicNotesSimpleLight
+    PiMusicNotesSimpleLight,
+    BsDot
 }
 
 export default icons

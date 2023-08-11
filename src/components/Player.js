@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import * as apis from '../apis'
 import icons from '../ultis/icons'
+import * as actions from '../store/actions'
 
 const { AiOutlineHeart, BiDotsHorizontalRounded, MdSkipNext, MdSkipPrevious, CiRepeat, PiShuffleLight, BiPlay, BiPause } = icons
 
 const Player = () => {
-    const audioEl = new Audio('https://mp3-s1-zmp3.zmdcdn.me/8a26f7b796f47faa26e5/877879162711649797?authen=exp=1691855822~acl=/8a26f7b796f47faa26e5/*~hmac=ad853a1df4b07f4461544060860bc914&fs=MTY5MTY4MzAyMjmUsIC0NXx3ZWJWNnwwfDExNS43OS4yMDkdUngMjQ3')
+    const audioEl = useRef(new Audio())
     const { curSongId, isPlaying } = useSelector(state => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [source, setSource] = useState(null)
+    const dispatch = useDispatch()
     // const [isPlaying, setIsPlaying] = useState(false)
-    console.log(audioEl);
+    // console.log(audioEl);
 
 
     useEffect(() => {
@@ -26,19 +28,31 @@ const Player = () => {
             }
             if (res2.data.err === 0) {
                 setSource(res2.data.data['128'])
+
             }
         }
 
         fetchDetailSong()
+
     }, [curSongId])
+
+    console.log(source);
 
     useEffect(() => {
-        //audioEl.play()
-
-    }, [curSongId])
+        audioEl.current.pause()
+        audioEl.current.src = source
+        audioEl.current.load()
+        if (isPlaying) audioEl.current.play()
+    }, [curSongId, source])
 
     const handleTogglePlay = () => {
-        // setIsPlaying(pre => !pre)
+        if (isPlaying) {
+            audioEl.current.pause()
+            dispatch(actions.play(false))
+        } else {
+            audioEl.current.play()
+            dispatch(actions.play(true))
+        }
     }
 
     return (

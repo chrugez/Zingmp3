@@ -1,5 +1,9 @@
 import React, { memo } from 'react'
 import { List } from './';
+import icons from '../ultis/icons'
+import moment from 'moment';
+
+const { BsDot } = icons
 
 const Lists = ({ songs, totalDuration }) => {
     // console.log({ songs, totalDuration });
@@ -14,6 +18,11 @@ const Lists = ({ songs, totalDuration }) => {
                 {songs?.map(item => (
                     <List key={item.encodeId} songData={item} />
                 ))}
+            </div>
+            <div className='flex items-center py-[10px] gap-1 border-t border-[rgba(0,0,0,0.05)]'>
+                <span>{`${songs?.length} bài hát`}</span>
+                <BsDot size={24} />
+                <span>{moment.utc(totalDuration * 1000).format('HH:mm')}</span>
             </div>
         </div>
     )

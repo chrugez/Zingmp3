@@ -3,17 +3,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as apis from '../apis'
 import icons from '../ultis/icons'
 import * as actions from '../store/actions'
+import moment from 'moment'
 
 const { AiOutlineHeart, BiDotsHorizontalRounded, MdSkipNext, MdSkipPrevious, CiRepeat, PiShuffleLight, BiPlay, BiPause } = icons
 
+let intervalId
+
 const Player = () => {
-    const audioEl = useRef(new Audio())
+
     const { curSongId, isPlaying } = useSelector(state => state.music)
     const [songInfo, setSongInfo] = useState(null)
-    const [source, setSource] = useState(null)
+    const [curSeconds, setCurSeconds] = useState(0)
     const dispatch = useDispatch()
-    // const [isPlaying, setIsPlaying] = useState(false)
-    // console.log(audioEl);
+    const [audio, setAudio] = useState(new Audio())
+    const thumbRef = useRef()
 
 
     useEffect(() => {
@@ -27,7 +30,8 @@ const Player = () => {
                 setSongInfo(res1.data.data)
             }
             if (res2.data.err === 0) {
-                setSource(res2.data.data['128'])
+                audio.pause()
+                setAudio(new Audio(res2.data.data['128']))
 
             }
         }
@@ -36,21 +40,31 @@ const Player = () => {
 
     }, [curSongId])
 
-    console.log(source);
+    useEffect(() => {
+
+        if (isPlaying) {
+            intervalId = setInterval(() => {
+                let percent = Math.round(audio.currentTime * 10000 / songInfo.duration) / 100
+                thumbRef.current.style.cssText = `right: ${100 - percent}%`
+                setCurSeconds(Math.round(audio.currentTime))
+            }, 200)
+        } else {
+            intervalId && clearInterval(intervalId)
+        }
+    }, [isPlaying])
+
 
     useEffect(() => {
-        audioEl.current.pause()
-        audioEl.current.src = source
-        audioEl.current.load()
-        if (isPlaying) audioEl.current.play()
-    }, [curSongId, source])
+        audio.load()
+        if (isPlaying) audio.play()
+    }, [audio])
 
     const handleTogglePlay = () => {
         if (isPlaying) {
-            audioEl.current.pause()
+            audio.pause()
             dispatch(actions.play(false))
         } else {
-            audioEl.current.play()
+            audio.play()
             dispatch(actions.play(true))
         }
     }
@@ -93,8 +107,12 @@ const Player = () => {
                         <CiRepeat size={24} />
                     </span>
                 </div>
-                <div>
-                    progressBar
+                <div className='w-full flex items-center justify-center gap-3 text-xs' >
+                    <span>{moment.utc(curSeconds * 1000).format('mm:ss')}</span>
+                    <div className='w-3/4 h-[3px] bg-[rgba(0,0,0,0.1)] relative rounded-l-full rounded-r-full'>
+                        <div ref={thumbRef} className='absolute top-0 left-0 h-[3px] bg-main-500 rounded-l-full rounded-r-full'></div>
+                    </div>
+                    <span>{moment.utc(songInfo?.duration * 1000).format('mm:ss')}</span>
                 </div>
             </div>
             <div className='w-[30%] flex-auto border border-red-500'>

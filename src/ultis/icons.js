@@ -1,5 +1,5 @@
 import { MdOutlineLibraryMusic, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
-import { PiChartLine, PiShuffleLight } from 'react-icons/pi'
+import { PiChartLine, PiShuffleLight, PiMusicNotesSimpleLight } from 'react-icons/pi'
 import { TbChartArcs } from 'react-icons/tb'
 import { MdOutlineFeed } from 'react-icons/md'
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from 'react-icons/hi'
@@ -24,7 +24,8 @@ const icons = {
     MdSkipPrevious,
     PiShuffleLight,
     BiPlay,
-    BiPause
+    BiPause,
+    PiMusicNotesSimpleLight
 }
 
 export default icons

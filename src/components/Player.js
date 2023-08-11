@@ -17,8 +17,8 @@ const Player = () => {
     useEffect(() => {
         const fetchDetailSong = async () => {
             const [res1, res2] = await Promise.all([
-                apis.getDetailSong(curSongId),
-                apis.getSong(curSongId)
+                apis.apiGetDetailSong(curSongId),
+                apis.apiGetSong(curSongId)
             ])
             //console.log(response);
             if (res1.data.err === 0) {
@@ -33,7 +33,7 @@ const Player = () => {
     }, [curSongId])
 
     useEffect(() => {
-        audioEl.play()
+        //audioEl.play()
 
     }, [curSongId])
 

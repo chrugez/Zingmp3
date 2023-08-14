@@ -4,18 +4,23 @@ import * as apis from '../../apis'
 import moment from 'moment/moment'
 import { Lists } from '../../components'
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { useDispatch } from 'react-redux'
+import * as actions from '../../store/actions'
+
 
 const Album = () => {
 
-    const { title, pid } = useParams()
+    const { pid } = useParams()
     const [playlistData, setPlaylistData] = useState({})
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchDetailPlaylist = async () => {
             const response = await apis.apiGetDetailPlaylist(pid)
-            console.log(response);
+            // console.log(response);
             if (response?.data.err === 0) {
                 setPlaylistData(response.data?.data)
+                dispatch(actions.setPlaylist(response?.data?.data?.song?.items))
             }
         }
 
@@ -49,7 +54,7 @@ const Album = () => {
                         <span className='text-gray-600'>Lời tựa: </span>
                         <span>{playlistData?.sortDescription}</span>
                     </span>
-                    <Lists songs={playlistData?.song?.items} totalDuration={playlistData?.song?.totalDuration} />
+                    <Lists totalDuration={playlistData?.song?.totalDuration} />
                 </div>
             </Scrollbars>
         </div>

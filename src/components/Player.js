@@ -5,18 +5,35 @@ import icons from '../ultis/icons'
 import * as actions from '../store/actions'
 import moment from 'moment'
 import { toast } from 'react-toastify'
+import { LoadingSong } from './'
 
-const { AiOutlineHeart, BiDotsHorizontalRounded, MdSkipNext, MdSkipPrevious, CiRepeat, PiShuffleLight, BiPlay, BiPause, TbRepeatOnce } = icons
+const {
+    AiOutlineHeart,
+    BiDotsHorizontalRounded,
+    MdSkipNext,
+    MdSkipPrevious,
+    CiRepeat,
+    PiShuffleLight,
+    BiPlay,
+    BiPause,
+    TbRepeatOnce,
+    PiPlaylist,
+    SlVolume1,
+    SlVolume2,
+    SlVolumeOff,
+} = icons
 
 var intervalId
 
-const Player = () => {
+const Player = ({ setIsShowRightSideBar }) => {
 
     const { curSongId, isPlaying, songs } = useSelector(state => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [curSeconds, setCurSeconds] = useState(0)
     const [isShuffle, setIsShuffle] = useState(false)
     const [repeatMode, setRepeatMode] = useState(0)
+    const [isLoadedSource, setIsLoadedSource] = useState(true)
+    const [volume, setVolume] = useState(100)
     const dispatch = useDispatch()
     const [audio, setAudio] = useState(new Audio())
     const thumbRef = useRef()
@@ -25,10 +42,12 @@ const Player = () => {
 
     useEffect(() => {
         const fetchDetailSong = async () => {
+            setIsLoadedSource(false)
             const [res1, res2] = await Promise.all([
                 apis.apiGetDetailSong(curSongId),
                 apis.apiGetSong(curSongId)
             ])
+            setIsLoadedSource(true)
             if (res1.data.err === 0) {
                 setSongInfo(res1.data.data)
             }
@@ -81,6 +100,10 @@ const Player = () => {
             audio.removeEventListener('ended', handleEnded)
         }
     }, [audio, isShuffle, repeatMode])
+
+    useEffect(() => {
+        audio.volume = volume / 100
+    }, [volume])
 
     const handleTogglePlay = async () => {
         if (isPlaying) {
@@ -149,7 +172,7 @@ const Player = () => {
                     </span>
                 </div>
             </div>
-            <div className='w-[40%] flex-auto flex items-center justify-center gap-2 flex-col border border-red-500 py-2'>
+            <div className='w-[40%] flex-auto flex items-center justify-center gap-2 flex-col py-2'>
                 <div className='flex gap-8 items-center justify-center'>
                     <span
                         title='Bật phát ngẫu nhiên'
@@ -168,7 +191,7 @@ const Player = () => {
                         className='p-1 border border-gray-700 rounded-full hover:text-main-500 cursor-pointer'
                         onClick={handleTogglePlay}
                     >
-                        {isPlaying ? <BiPause size={30} /> : <BiPlay size={30} />}
+                        {!isLoadedSource ? <LoadingSong /> : isPlaying ? <BiPause size={30} /> : <BiPlay size={30} />}
                     </span>
                     <span
                         className={`${!songs ? 'text-gray-500' : 'cursor-pointer'}`}
@@ -196,8 +219,23 @@ const Player = () => {
                     <span>{moment.utc(songInfo?.duration * 1000).format('mm:ss')}</span>
                 </div>
             </div>
-            <div className='w-[30%] flex-auto border border-red-500'>
-                volume
+            <div className='w-[30%] flex-auto flex items-center justify-end gap-4'>
+                <div className='flex gap-2 items-center'>
+                    <span onClick={() => setVolume(prev => +prev === 0 ? 70 : 0)}>
+                        {+volume >= 50 ? <SlVolume2 /> : +volume === 0 ? <SlVolumeOff /> : <SlVolume1 />}
+                    </span>
+                    <input
+                        type='range'
+                        step={1}
+                        min={0}
+                        max={100}
+                        value={volume}
+                        onChange={(e) => setVolume(e.target.value)}
+                    />
+                </div>
+                <span onClick={() => setIsShowRightSideBar(prev => !prev)} className='p-1 rounded-md cursor-pointer bg-main-500 opacity-90 hover:opacity-100'>
+                    <PiPlaylist size={20} />
+                </span>
             </div>
         </div>
     )

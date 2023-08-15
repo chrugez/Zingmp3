@@ -6,7 +6,7 @@ import * as actions from '../store/actions'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-const { AiOutlineHeart, BiDotsHorizontalRounded, MdSkipNext, MdSkipPrevious, CiRepeat, PiShuffleLight, BiPlay, BiPause } = icons
+const { AiOutlineHeart, BiDotsHorizontalRounded, MdSkipNext, MdSkipPrevious, CiRepeat, PiShuffleLight, BiPlay, BiPause, TbRepeatOnce } = icons
 
 var intervalId
 
@@ -16,6 +16,7 @@ const Player = () => {
     const [songInfo, setSongInfo] = useState(null)
     const [curSeconds, setCurSeconds] = useState(0)
     const [isShuffle, setIsShuffle] = useState(false)
+    const [repeatMode, setRepeatMode] = useState(0)
     const dispatch = useDispatch()
     const [audio, setAudio] = useState(new Audio())
     const thumbRef = useRef()
@@ -53,7 +54,7 @@ const Player = () => {
         intervalId && clearInterval(intervalId)
         audio.pause()
         audio.load()
-        if (isPlaying) {
+        if (isPlaying && thumbRef.current) {
             audio.play()
             intervalId = setInterval(() => {
                 let percent = Math.round(audio.currentTime * 10000 / songInfo.duration) / 100
@@ -62,6 +63,24 @@ const Player = () => {
             }, 200)
         }
     }, [audio])
+
+    useEffect(() => {
+        const handleEnded = () => {
+            if (isShuffle) {
+                handleShuffle()
+            } else if (repeatMode) {
+                repeatMode === 1 ? handleRepeatOne() : handleNextSong()
+            } else {
+                audio.pause()
+                dispatch(actions.play(false))
+            }
+        }
+        audio.addEventListener('ended', handleEnded)
+
+        return () => {
+            audio.removeEventListener('ended', handleEnded)
+        }
+    }, [audio, isShuffle, repeatMode])
 
     const handleTogglePlay = async () => {
         if (isPlaying) {
@@ -103,9 +122,15 @@ const Player = () => {
         }
     }
 
-    // const handleShuffle = () => {
+    const handleShuffle = () => {
+        const randomIndex = Math.round(Math.random() * songs?.length) - 1
+        dispatch(actions.setCurSongId(songs[randomIndex - 1].encodeId))
+        dispatch(actions.play(true))
+    }
 
-    // }
+    const handleRepeatOne = () => {
+        audio.play()
+    }
 
     return (
         <div className='bg-main-400 px-5 h-full flex'>
@@ -133,7 +158,10 @@ const Player = () => {
                     >
                         <PiShuffleLight size={24} />
                     </span>
-                    <span className={`${!songs ? 'text-gray-500' : 'cursor-pointer'}`} onClick={handlePrevSong}>
+                    <span
+                        className={`${!songs ? 'text-gray-500' : 'cursor-pointer'}`}
+                        onClick={handlePrevSong}
+                    >
                         <MdSkipPrevious size={24} />
                     </span>
                     <span
@@ -142,11 +170,18 @@ const Player = () => {
                     >
                         {isPlaying ? <BiPause size={30} /> : <BiPlay size={30} />}
                     </span>
-                    <span className={`${!songs ? 'text-gray-500' : 'cursor-pointer'}`} onClick={handleNextSong}>
+                    <span
+                        className={`${!songs ? 'text-gray-500' : 'cursor-pointer'}`}
+                        onClick={handleNextSong}
+                    >
                         <MdSkipNext size={24} />
                     </span>
-                    <span title='Bật phát lại tất cả' className='cursor-pointer'>
-                        <CiRepeat size={24} />
+                    <span
+                        title='Bật phát lại tất cả'
+                        className={`${repeatMode && 'text-purple-600'} cursor-pointer`}
+                        onClick={() => setRepeatMode(prev => prev === 2 ? 0 : prev + 1)}
+                    >
+                        {repeatMode === 1 ? <TbRepeatOnce size={24} /> : <CiRepeat size={24} />}
                     </span>
                 </div>
                 <div className='w-full flex items-center justify-center gap-3 text-xs' >

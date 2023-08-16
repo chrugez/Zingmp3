@@ -1,13 +1,32 @@
 import React from 'react'
-import { Slider, Section } from '../../components'
+import { useSelector } from 'react-redux/'
+import { Slider, Section, NewRelease } from '../../components'
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
 
+    const { sec1, sec2, sec3, sec4, sec5, sec6, sec7, weekChart } = useSelector(state => state.app)
+    console.log(weekChart);
     return (
         <div className='overflow-y-auto '>
             <Slider />
-            <Section />
+            <Section data={sec1} />
+            <NewRelease />
+            <Section data={sec2} />
+            <Section data={sec3} />
+            <Section data={sec4} />
+            <Section data={sec5} />
+            <Section data={sec6} />
+            <Section data={sec7} />
+            <div className='flex items-center px-[43px] w-full mt-12'>
+                {weekChart?.map(item => (
+                    <Link to={item?.link?.split('.')[0]} key={item.link} className='flex-1 px-4'>
+                        <img src={item.cover} alt='cover' className='w-full object-cover rounded-md' />
+                    </Link>
+                ))}
+            </div>
+            <div className='w-full h-[500px]'></div>
         </div>
     )
 }

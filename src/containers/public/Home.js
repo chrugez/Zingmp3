@@ -17,8 +17,6 @@ const Home = () => {
             <Section data={sec3} />
             <Section data={sec4} />
             <Section data={sec5} />
-            <Section data={sec6} />
-            <Section data={sec7} />
             <ChartSection />
             <div className='flex items-center px-[43px] w-full mt-12'>
                 {weekChart?.map(item => (
@@ -27,6 +25,8 @@ const Home = () => {
                     </Link>
                 ))}
             </div>
+            <Section data={sec6} />
+            <Section data={sec7} />
             <div className='w-full h-[500px]'></div>
         </div>
     )

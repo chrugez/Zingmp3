@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux/'
-import { Slider, Section, NewRelease } from '../../components'
+import { Slider, Section, NewRelease, ChartSection } from '../../components'
 import { Link } from 'react-router-dom'
 
 
@@ -19,6 +19,7 @@ const Home = () => {
             <Section data={sec5} />
             <Section data={sec6} />
             <Section data={sec7} />
+            <ChartSection />
             <div className='flex items-center px-[43px] w-full mt-12'>
                 {weekChart?.map(item => (
                     <Link to={item?.link?.split('.')[0]} key={item.link} className='flex-1 px-4'>

@@ -49,14 +49,17 @@ const NewRelease = () => {
             </div>
             <div className='flex flex-wrap w-full gap-3'>
                 {newRelease?.items?.all?.filter((item, index) => index < 12)?.map(item => (
-                    <SongItem
-                        key={item.encodeId}
-                        thumbnail={item.thumbnail}
-                        title={item.title}
-                        artists={item.artistsNames}
-                        releaseDate={item.releaseDate}
-                        sid={item.encodeId}
-                    />
+                    <div className='w-[45%] min-[1024px]:w-[30%]' key={item.encodeId}>
+                        <SongItem
+
+                            thumbnail={item.thumbnail}
+                            title={item.title}
+                            artists={item.artistsNames}
+                            releaseDate={item.releaseDate}
+                            sid={item.encodeId}
+                        />
+                    </div>
+
                 ))}
             </div>
         </div>

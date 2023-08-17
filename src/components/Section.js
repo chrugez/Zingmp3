@@ -13,7 +13,7 @@ const Section = ({ data }) => {
                 </span>
             </div>
             <div className='flex items-start justify-between gap-7'>
-                {data && data?.items?.length > 0 && data.items.slice(0, 5).map(item =>
+                {data && data?.items?.length > 0 && data.items.filter((item, index) => index <= 4)?.map(item =>
                 (
                     <SectionItem
                         key={item.encodeId}
@@ -22,6 +22,7 @@ const Section = ({ data }) => {
                         link={item.link}
                         sortDescription={item.sortDescription}
                         thumbnailM={item.thumbnailM}
+                        artistsNames={item.artistsNames}
                     />
                 ))}
             </div>

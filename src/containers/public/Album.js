@@ -34,7 +34,8 @@ const Album = () => {
     }, [pid])
 
     useEffect(() => {
-        if (location?.state?.playAlbum) {
+        console.log(location.state?.playAlbum);
+        if (location.state?.playAlbum) {
             const randomSong = Math.round(Math.random() * playlistData?.song?.items?.length) - 1
             dispatch(actions.setCurSongId(playlistData?.song?.items[randomSong]?.encodeId))
             dispatch(actions.play(true))

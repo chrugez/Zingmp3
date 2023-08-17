@@ -115,7 +115,10 @@ module.exports = {
         'scale-down-image': 'scale-down-image 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both'
       },
       flex: {
-        '4': '4 4 0%'
+        '3': '3 3 0%',
+        '4': '4 4 0%',
+        '6': '6 6 0%',
+        '7': '7 7 0%',
       }
     },
     screens: {

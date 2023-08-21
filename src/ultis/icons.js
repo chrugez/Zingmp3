@@ -9,6 +9,7 @@ import { BiDotsHorizontalRounded, BiPlay, BiPause } from 'react-icons/bi'
 import { CiRepeat } from 'react-icons/ci'
 import { BsDot, BsPlayCircle } from 'react-icons/bs'
 import { SlVolume2, SlVolumeOff, SlVolume1 } from 'react-icons/sl'
+import { RiDeleteBin5Line } from 'react-icons/ri'
 
 const icons = {
     MdOutlineLibraryMusic,
@@ -34,7 +35,8 @@ const icons = {
     PiPlaylist,
     SlVolume2,
     SlVolumeOff,
-    SlVolume1
+    SlVolume1,
+    RiDeleteBin5Line
 }
 
 export default icons

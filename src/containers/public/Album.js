@@ -19,6 +19,7 @@ const Album = () => {
     const { isPlaying } = useSelector(state => state.music)
 
     useEffect(() => {
+        dispatch(actions.setCurAlbumId(pid))
         const fetchDetailPlaylist = async () => {
             dispatch(actions.loading(true))
             const response = await apis.apiGetDetailPlaylist(pid)
@@ -34,7 +35,6 @@ const Album = () => {
     }, [pid])
 
     useEffect(() => {
-        console.log(location.state?.playAlbum);
         if (location.state?.playAlbum) {
             const randomSong = Math.round(Math.random() * playlistData?.song?.items?.length) - 1
             dispatch(actions.setCurSongId(playlistData?.song?.items[randomSong]?.encodeId))

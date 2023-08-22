@@ -12,7 +12,7 @@ const SidebarRight = () => {
 
     const [isRecent, setIsRecent] = useState(false)
     const [playlist, setPlaylist] = useState()
-    const { curSongData, curAlbumId, isPlaying } = useSelector(state => state.music)
+    const { curSongData, curAlbumId, isPlaying, recentSongs, curSongId } = useSelector(state => state.music)
     // console.log(curSongData);
     const fetchDetailPlaylist = async () => {
         const response = await apiGetDetailPlaylist(curAlbumId)
@@ -26,6 +26,11 @@ const SidebarRight = () => {
     useEffect(() => {
         if (curAlbumId && isPlaying) fetchDetailPlaylist()
     }, [curAlbumId, isPlaying])
+
+    useEffect(() => {
+        isPlaying && setIsRecent(false)
+    }, [isPlaying, curSongId])
+    // console.log(curSongData);
 
     return (
         <div className='flex flex-col text-xs w-full h-full'>
@@ -48,44 +53,68 @@ const SidebarRight = () => {
                     <RiDeleteBin5Line size={16} />
                 </span>
             </div>
-            <div className='w-full flex flex-auto flex-col px-3 '>
-                <Scrollbars autoHide style={{ width: '100%', height: '100%' }}>
-                    <SongItem
-                        thumbnail={curSongData?.thumbnail}
-                        title={curSongData?.title}
-                        artists={curSongData?.artistsNames}
-                        sid={curSongData?.encodeId}
-                        sm
-                        style='bg-main-500 text-white'
-                    />
-                    <div className='flex flex-col text-black pt-[15px] px-2 pb-[5px]'>
-                        <span className=' text-sm font-bold'>
-                            Tiếp theo
-                        </span>
-                        <span className='opacity-70 text-xs flex gap-1 '>
-                            <span>
-                                Từ playlist
-                            </span>
-                            <span className='font-semibold text-main-500'>
-                                {curSongData?.album?.title?.length > 30 ? `${curSongData?.album?.title?.length?.slice(0, 30)}...` : curSongData?.album?.title}
-                            </span>
-                        </span>
-                    </div>
-                    {playlist && <div className='flex flex-col'>
+            {isRecent
+                ? <div className='w-full flex flex-auto flex-col px-3 '>
+                    <Scrollbars autoHide style={{ width: '100%', height: '100%' }}>
+                        {recentSongs && <div className='flex flex-col'>
 
-                        {playlist?.map(item => (
-                            <SongItem
-                                key={item.encodeId}
-                                thumbnail={item?.thumbnail}
-                                title={item?.title}
-                                artists={item?.artistsNames}
-                                sid={item?.encodeId}
-                                sm
-                            />
-                        ))}
-                    </div>}
-                </Scrollbars>
-            </div>
+                            {recentSongs?.map(item => (
+                                <SongItem
+                                    key={item.sid}
+                                    thumbnail={item?.thumbnail}
+                                    title={item?.title}
+                                    artists={item?.artists?.length < 2 ? item?.artists?.map(data => data.name) : `${item?.artists?.map(data => {
+                                        let artistsNames = []
+                                        artistsNames.push(data?.name)
+                                        return artistsNames.join(', ')
+                                    })}`
+                                    }
+                                    sid={item?.sid}
+                                    sm
+                                />
+                            ))}
+                        </div>}
+                    </Scrollbars>
+                </div>
+                : <div className='w-full flex flex-auto flex-col px-3 '>
+                    <Scrollbars autoHide style={{ width: '100%', height: '100%' }}>
+                        <SongItem
+                            thumbnail={curSongData?.thumbnail}
+                            title={curSongData?.title}
+                            artists={curSongData?.artistsNames}
+                            sid={curSongData?.encodeId}
+                            sm
+                            style='bg-main-500 text-white'
+                        />
+                        <div className='flex flex-col text-black pt-[15px] px-2 pb-[5px]'>
+                            <span className=' text-sm font-bold'>
+                                Tiếp theo
+                            </span>
+                            <span className='opacity-70 text-xs flex gap-1 '>
+                                <span>
+                                    Từ playlist
+                                </span>
+                                <span className='font-semibold text-main-500'>
+                                    {curSongData?.album?.title?.length > 30 ? `${curSongData?.album?.title?.slice(0, 30)}...` : curSongData?.album?.title}
+                                </span>
+                            </span>
+                        </div>
+                        {playlist && <div className='flex flex-col'>
+
+                            {playlist?.map(item => (
+                                <SongItem
+                                    key={item.encodeId}
+                                    thumbnail={item?.thumbnail}
+                                    title={item?.title}
+                                    artists={item?.artistsNames}
+                                    sid={item?.encodeId}
+                                    sm
+                                />
+                            ))}
+                        </div>}
+                    </Scrollbars>
+                </div>}
+            <div className='w-full h-[90px]'></div>
         </div>
     )
 }

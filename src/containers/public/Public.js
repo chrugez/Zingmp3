@@ -17,7 +17,7 @@ const Public = () => {
                     {isLoading && <div className='absolute top-0 left-0 right-0 bottom-0 z-20 bg-main-200 flex items-center justify-center'>
                         <Loading />
                     </div>}
-                    <div className='h-[70px] px-[59px] flex-none flex items-center'>
+                    <div className='h-[70px] fixed top-0 left-[240px] right-[329px] px-[59px] z-50 flex items-center'>
                         <Header />
                     </div>
                     <div className='flex-auto w-full'>

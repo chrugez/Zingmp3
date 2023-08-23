@@ -6,7 +6,7 @@ import * as actions from '../store/actions'
 
 const { PiMusicNotesSimpleLight } = icons
 
-const List = ({ songData }) => {
+const List = ({ songData, isHideAlbum, isHideNode }) => {
 
     const dispatch = useDispatch()
 
@@ -21,23 +21,23 @@ const List = ({ songData }) => {
             }}
         >
             <div className='flex items-center gap-3 flex-1'>
-                <span>
+                {!isHideNode && <span>
                     <PiMusicNotesSimpleLight />
-                </span>
+                </span>}
                 <img src={songData?.thumbnail} alt='thumbnail' className='w-10 h-10 object-cover rounded-md' />
                 <span className='flex flex-col w-full'>
                     <span className='text-sm font-semibold '>
                         {songData?.title.length > 30 ? `${songData?.title.slice(0, 30)}...` : songData?.title}
                     </span>
-                    <span>
+                    <span className='text-xs opacity-70'>
                         {songData?.artistsNames}
                     </span>
                 </span>
             </div>
-            <div className='flex-1 flex items-center justify-center'>
+            {!isHideAlbum && <div className='flex-1 flex items-center justify-center'>
                 {songData?.album?.title?.length > 30 ? `${songData?.album?.title?.slice(0, 30)}...` : songData?.album?.title}
-            </div>
-            <div className='flex-1 flex justify-end'>
+            </div>}
+            <div className='flex-1 flex justify-end text-xs'>
                 {moment.utc(songData?.duration * 1000).format('mm:ss')}
             </div>
         </div>

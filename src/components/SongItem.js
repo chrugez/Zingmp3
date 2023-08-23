@@ -5,7 +5,7 @@ import 'moment/locale/vi'
 import { useDispatch } from 'react-redux'
 import * as actions from '../store/actions'
 
-const SongItem = ({ thumbnail, title, artists, releaseDate, sid, order, percent, style, sm }) => {
+const SongItem = ({ thumbnail, title, artists, releaseDate, sid, order, percent, style, size }) => {
 
     const dispatch = useDispatch()
     return (
@@ -19,7 +19,7 @@ const SongItem = ({ thumbnail, title, artists, releaseDate, sid, order, percent,
         >
             <div className='flex gap-4'>
                 {order && <span className={`${order === 1 ? 'text-shadow-no1' : order === 2 ? 'text-shadow-no2' : 'text-shadow-no3'} text-[rgba(77,23,104,0.9)] text-[32px] m-auto`}>{order}</span>}
-                <img src={thumbnail} alt='thumbnail' className={`${sm ? 'w-[40px] h-[40px] object-cover rounded-md' : 'w-[60px] h-[60px] object-cover rounded-md'} `} />
+                <img src={thumbnail} alt='thumbnail' className={`${size || 'w-[60px] h-[60px]'}  object-cover rounded-md`} />
                 <div className='flex flex-col'>
                     <span className='text-sm font-semibold'>{title?.length > 30 ? `${title.slice(0, 30)}...` : title}</span>
                     <span className='text-xs opacity-70'>{artists?.length > 30 ? `${artists.slice(0, 30)}...` : artists}</span>

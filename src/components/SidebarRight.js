@@ -59,19 +59,21 @@ const SidebarRight = () => {
                         {recentSongs && <div className='flex flex-col'>
 
                             {recentSongs?.map(item => (
-                                <SongItem
-                                    key={item.sid}
-                                    thumbnail={item?.thumbnail}
-                                    title={item?.title}
-                                    artists={item?.artists?.length < 2 ? item?.artists?.map(data => data.name) : `${item?.artists?.map(data => {
-                                        let artistsNames = []
-                                        artistsNames.push(data?.name)
-                                        return artistsNames.join(', ')
-                                    })}`
-                                    }
-                                    sid={item?.sid}
-                                    sm
-                                />
+                                <div key={item.sid} className='py-1 '>
+                                    <SongItem
+
+                                        thumbnail={item?.thumbnail}
+                                        title={item?.title}
+                                        artists={item?.artists?.length < 2 ? item?.artists?.map(data => data.name) : `${item?.artists?.map(data => {
+                                            let artistsNames = []
+                                            artistsNames.push(data?.name)
+                                            return artistsNames.join(', ')
+                                        })}`
+                                        }
+                                        sid={item?.sid}
+                                        size={'w-[40px] h-[40px]'}
+                                    />
+                                </div>
                             ))}
                         </div>}
                     </Scrollbars>
@@ -83,7 +85,7 @@ const SidebarRight = () => {
                             title={curSongData?.title}
                             artists={curSongData?.artistsNames}
                             sid={curSongData?.encodeId}
-                            sm
+                            size={'w-[40px] h-[40px]'}
                             style='bg-main-500 text-white'
                         />
                         <div className='flex flex-col text-black pt-[15px] px-2 pb-[5px]'>
@@ -99,17 +101,18 @@ const SidebarRight = () => {
                                 </span>
                             </span>
                         </div>
-                        {playlist && <div className='flex flex-col'>
+                        {playlist && <div className='flex flex-col py-2'>
 
                             {playlist?.map(item => (
-                                <SongItem
-                                    key={item.encodeId}
-                                    thumbnail={item?.thumbnail}
-                                    title={item?.title}
-                                    artists={item?.artistsNames}
-                                    sid={item?.encodeId}
-                                    sm
-                                />
+                                <div key={item.encodeId} className='py-1'>
+                                    <SongItem
+                                        thumbnail={item?.thumbnail}
+                                        title={item?.title}
+                                        artists={item?.artistsNames}
+                                        sid={item?.encodeId}
+                                        size={'w-[40px] h-[40px]'}
+                                    />
+                                </div>
                             ))}
                         </div>}
                     </Scrollbars>

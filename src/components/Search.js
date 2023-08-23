@@ -6,7 +6,7 @@ import { useNavigate, createSearchParams } from 'react-router-dom'
 import path from '../ultis/path'
 
 
-const { FiSearch } = icons
+const { FiSearch, AiOutlineClose } = icons
 
 const Search = () => {
 
@@ -29,7 +29,8 @@ const Search = () => {
     }
 
     return (
-        <div className='w-full flex items-center '>
+        <div className='w-full flex relative items-center '>
+            {keyword && <span onClick={() => setKeyword('')} className='absolute right-4 cursor-pointer'><AiOutlineClose /></span>}
             <span className='h-10 pl-4 bg-[#DDE4E4] flex items-center justify-center rounded-l-[20px] text-gray-500'>
                 <FiSearch size={24} />
             </span>

@@ -4,7 +4,7 @@ import { TbChartArcs, TbRepeatOnce } from 'react-icons/tb'
 import { MdOutlineFeed } from 'react-icons/md'
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from 'react-icons/hi'
 import { FiSearch } from 'react-icons/fi'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart, AiOutlineUserAdd, AiOutlineClose } from 'react-icons/ai'
 import { BiDotsHorizontalRounded, BiPlay, BiPause } from 'react-icons/bi'
 import { CiRepeat } from 'react-icons/ci'
 import { BsDot, BsPlayCircle } from 'react-icons/bs'
@@ -36,7 +36,9 @@ const icons = {
     SlVolume2,
     SlVolumeOff,
     SlVolume1,
-    RiDeleteBin5Line
+    RiDeleteBin5Line,
+    AiOutlineUserAdd,
+    AiOutlineClose,
 }
 
 export default icons

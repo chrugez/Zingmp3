@@ -16,6 +16,7 @@ const NewRelease = () => {
         else
             setSongs(newRelease?.items?.others)
     }, [isActived, newRelease])
+
     return (
         <div className='mt-12 px-[59px] flex flex-col gap-5'>
             <div className='flex items-center justify-between'>
@@ -48,15 +49,15 @@ const NewRelease = () => {
                 </button>
             </div>
             <div className='flex flex-wrap w-full gap-3'>
-                {newRelease?.items?.all?.filter((item, index) => index < 12)?.map(item => (
+                {songs?.filter((item, index) => index < 12)?.map(item => (
                     <div className='w-[45%] min-[1024px]:w-[30%]' key={item.encodeId}>
                         <SongItem
-
                             thumbnail={item.thumbnail}
                             title={item.title}
                             artists={item.artistsNames}
                             releaseDate={item.releaseDate}
                             sid={item.encodeId}
+                            size={'w-[40px] h-[40px]'}
                         />
                     </div>
 

@@ -9,6 +9,7 @@ const Home = () => {
     const { sec1, sec2, sec3, sec4, sec5, sec6, sec7, weekChart } = useSelector(state => state.app)
     return (
         <div className='overflow-y-auto '>
+            <div className='w-full h-[70px]'></div>
             <Slider />
             <Section data={sec1} />
             <NewRelease />

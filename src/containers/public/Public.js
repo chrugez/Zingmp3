@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Player, SidebarLeft, SidebarRight, Header, Loading } from '../../components';
 import { useSelector } from 'react-redux';
+import _ from 'lodash'
 
 const Public = () => {
     const { isLoading } = useSelector(state => state.app)
     const [isShowRightSideBar, setIsShowRightSideBar] = useState(true)
+    const singer = useParams()
+    console.log(singer);
     return (
         <div className='w-full relative h-screen flex flex-col bg-main-300'>
             <div className='w-full h-full flex flex-auto'>
@@ -17,7 +20,7 @@ const Public = () => {
                     {isLoading && <div className='absolute top-0 left-0 right-0 bottom-0 z-20 bg-main-200 flex items-center justify-center'>
                         <Loading />
                     </div>}
-                    <div className='h-[70px] fixed top-0 left-[240px] right-[329px] px-[59px] z-50 flex items-center'>
+                    <div className={`h-[70px] ${_.isEmpty(singer) ? 'bg-main-300' : 'bg-transparent'} fixed top-0 left-[240px] right-[329px] px-[59px] z-50 flex items-center`}>
                         <Header />
                     </div>
                     <div className='flex-auto w-full'>

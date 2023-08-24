@@ -3,6 +3,7 @@ import icons from '../ultis/icons'
 import { Search } from './'
 import { useNavigate, useParams } from 'react-router-dom'
 
+
 const { HiArrowNarrowLeft, HiArrowNarrowRight } = icons
 
 const Header = () => {

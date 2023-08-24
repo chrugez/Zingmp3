@@ -13,7 +13,7 @@ const Search = () => {
 
     return (
         <div>
-            <div className='flex h-[50px] mb-7 items-center text-sm border-b border-gray-400 pl-[60px] pb-1 '>
+            <div className='flex h-[50px] mb-7 items-center text-sm border-b border-gray-400 pl-[60px] pb-1 mt-[60px]'>
                 <span className='text-[24px] font-bold pr-6 border-r border-gray-400'>Kết quả tìm kiếm</span>
                 <div className='flex items-center uppercase'>
                     {searchMenu.map(item => (

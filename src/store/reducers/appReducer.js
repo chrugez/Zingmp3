@@ -14,6 +14,7 @@ const initState = {
     weekChart: [],
     chart: {},
     rank: [],
+    scrollTop: true
 }
 
 const appReducer = (state = initState, action) => {
@@ -40,7 +41,11 @@ const appReducer = (state = initState, action) => {
                 ...state,
                 isLoading: action.flag,
             }
-
+        case actionTypes.ZERO_SCROLLTOP:
+            return {
+                ...state,
+                scrollTop: action.flag,
+            }
         default:
             return state
     }

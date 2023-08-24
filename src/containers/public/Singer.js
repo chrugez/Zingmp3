@@ -4,6 +4,7 @@ import { apiGetArtist } from '../../apis';
 import icons from '../../ultis/icons'
 import { SongItem, Section, Artist } from '../../components';
 
+
 const { AiOutlineUserAdd, BiPlay } = icons
 const Singer = () => {
     const singer = useParams()
@@ -12,10 +13,12 @@ const Singer = () => {
     const [isHoverPlay, setisHoverPlay] = useState(false)
     const ref = useRef()
 
+
+
     useEffect(() => {
         const fetchArtistData = async () => {
             const res = await apiGetArtist(singer.singer)
-            console.log(res);
+            // console.log(res);
             if (res.data.err === 0) {
                 setArtistData(res.data.data)
             }

@@ -6,7 +6,7 @@ import * as actions from '../store/actions'
 
 const { PiMusicNotesSimpleLight } = icons
 
-const List = ({ songData, isHideAlbum, isHideNode }) => {
+const List = ({ songData, isHideAlbum, isHideNode, order }) => {
 
     const dispatch = useDispatch()
 
@@ -21,6 +21,7 @@ const List = ({ songData, isHideAlbum, isHideNode }) => {
             }}
         >
             <div className='flex items-center gap-3 flex-1'>
+                {order && <span className={`${order === 1 ? 'text-shadow-no1' : order === 2 ? 'text-shadow-no2' : order === 3 ? 'text-shadow-no3' : 'text-shadow-rest'} text-main-300 text-[32px] flex justify-center items-center flex-none w-[10%]`}>{order}</span>}
                 {!isHideNode && <span>
                     <PiMusicNotesSimpleLight />
                 </span>}
@@ -34,7 +35,7 @@ const List = ({ songData, isHideAlbum, isHideNode }) => {
                     </span>
                 </span>
             </div>
-            {!isHideAlbum && <div className='flex-1 flex items-center justify-center'>
+            {!isHideAlbum && <div className='flex-1 flex items-center justify-center text-xs'>
                 {songData?.album?.title?.length > 30 ? `${songData?.album?.title?.slice(0, 30)}...` : songData?.album?.title}
             </div>}
             <div className='flex-1 flex justify-end text-xs'>

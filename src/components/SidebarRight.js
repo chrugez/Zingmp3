@@ -84,7 +84,7 @@ const SidebarRight = () => {
                                     <SongItem
                                         thumbnail={item?.thumbnail}
                                         title={item?.title}
-                                        artists={item?.artists?.map(data => data.name)}
+                                        // artists={item?.artists?.map(data => data.name)}
                                         sid={item?.sid}
                                         size={'w-[40px] h-[40px]'}
                                     />

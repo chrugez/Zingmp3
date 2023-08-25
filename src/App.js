@@ -11,6 +11,9 @@ import { apiGetChartHome } from './apis';
 function App() {
   const dispatch = useDispatch()
   const [weekChart, setWeekChart] = useState(null)
+  //lấy width lần đầu
+  const [currentWidth, setCurrentWidth] = useState(window.innerWidth)
+
   useEffect(() => {
     dispatch(actions.getHome())
     const fetchChartData = async () => {
@@ -22,6 +25,23 @@ function App() {
     fetchChartData()
   }, [])
 
+  //hàm setWidth resize
+  const setWidth = (e) => {
+    setCurrentWidth(e.target.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', setWidth)
+    return () => {
+      window.removeEventListener('resize', setWidth)
+    }
+  }, [])
+
+  useEffect(() => {
+    dispatch(actions.setCurrentWidth(currentWidth))
+  }, [currentWidth])
+
+  // console.log(currentWidth);
   return (
     <>
       <div className="">

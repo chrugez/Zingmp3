@@ -1,9 +1,11 @@
 import React, { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { SectionItem } from './'
 
 const Section = ({ data }) => {
 
-
+    const { currentWidth } = useSelector(state => state.app)
+    // console.log(data.items.filter((item, index) => index <= (currentWidth < 600 ? 2 : currentWidth < 800 ? 3 : 4)));
     return (
         <div className='mt-12 px-[44px] flex flex-col gap-1'>
             <div className='flex items-center justify-between'>

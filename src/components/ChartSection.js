@@ -96,15 +96,15 @@ const ChartSection = () => {
     }, [chart])
     // console.log(data);
     return (
-        <div className='px-[59px] mt-12 relative h-[430px] rounded-md'>
-            <div className='bg-[rgba(51,16,76,.95)] rounded-md w-full h-[430px]'></div>
+        <div className='px-[59px] mt-12 relative min-[1324px]:h-[430px] h-[760px] rounded-md'>
+            <div className='bg-[rgba(51,16,76,.95)] rounded-md w-full min-[1324px]:h-[430px] h-[760px]'></div>
             <div className='absolute top-0 left-[59px] right-[59px] bottom-0 bg-[rgba(77,23,104,0.9)] rounded-md'></div>
             <div className='absolute top-0 left-[59px] right-[59px] bottom-0 z-10 p-5 flex flex-col gap-8 rounded-md'>
                 <Link to={path.ZING_CHART} className='flex gap-2 items-center'>
                     <h3 className='text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600'>#zingchart</h3>
                     <span className='bg-white rounded-full p-1 hover:text-green-800'><BiPlay size={18} /></span>
                 </Link>
-                <div className='flex gap-4 h-full'>
+                <div className='min-[1324px]:flex-row flex flex-col gap-4 h-full'>
                     <div className='flex-3 flex flex-col gap-4'>
                         {rank?.filter((item, index) => index < 3)?.map((item, index) => (
                             <SongItem
@@ -120,7 +120,7 @@ const ChartSection = () => {
                         ))}
                         <Link to={path.ZING_CHART} className='text-white px-4 py-2 m-auto rounded-l-full rounded-r-full border border-white w-fit'>Xem thêm</Link>
                     </div>
-                    <div className='flex-7 h-[90%] relative'>
+                    <div className='flex-7 order-first min-[1324px]:order-last min-[1324px]:w-[500px] h-[80%] relative'>
                         {data && <Line data={data} ref={chartRef} options={options} />}
                         <div className='tooltip' style={{ top: tooltipState.top, left: tooltipState.left, opacity: tooltipState.opacity, position: 'absolute' }}>
                             <SongItem

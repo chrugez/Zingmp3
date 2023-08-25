@@ -33,11 +33,13 @@ const Player = ({ setIsShowRightSideBar }) => {
     const [isShuffle, setIsShuffle] = useState(false)
     const [repeatMode, setRepeatMode] = useState(0)
     const [isLoadedSource, setIsLoadedSource] = useState(true)
+    const [isHoverVolume, setIsHoverVolume] = useState(false)
     const [volume, setVolume] = useState(100)
     const dispatch = useDispatch()
     const [audio, setAudio] = useState(new Audio())
     const thumbRef = useRef()
     const trackRef = useRef()
+    const volumeRef = useRef()
 
 
     useEffect(() => {
@@ -104,6 +106,12 @@ const Player = ({ setIsShowRightSideBar }) => {
 
     useEffect(() => {
         audio.volume = volume / 100
+    }, [volume])
+
+    useEffect(() => {
+        if (volumeRef.current) {
+            volumeRef.current.style.cssText = `right: ${100 - volume}%`
+        }
     }, [volume])
 
     const handleTogglePlay = async () => {
@@ -221,10 +229,17 @@ const Player = ({ setIsShowRightSideBar }) => {
                 </div>
             </div>
             <div className='w-[30%] flex-auto flex items-center justify-end gap-4'>
-                <div className='flex gap-2 items-center'>
+                <div
+                    className='flex gap-2 items-center'
+                    onMouseEnter={e => setIsHoverVolume(true)}
+                    onMouseLeave={e => setIsHoverVolume(false)}
+                >
                     <span onClick={() => setVolume(prev => +prev === 0 ? 70 : 0)}>
                         {+volume >= 50 ? <SlVolume2 /> : +volume === 0 ? <SlVolumeOff /> : <SlVolume1 />}
                     </span>
+                    <div className={`w-[130px] h-1 bg-white rounded-l-full rounded-r-full ${isHoverVolume ? 'hidden' : 'relative'}`}>
+                        <div ref={volumeRef} className='absolute left-0 right-0 bottom-0 top-0 bg-main-500 rounded-r-full rounded-l-full'></div>
+                    </div>
                     <input
                         type='range'
                         step={1}
@@ -232,6 +247,7 @@ const Player = ({ setIsShowRightSideBar }) => {
                         max={100}
                         value={volume}
                         onChange={(e) => setVolume(e.target.value)}
+                        className={`w-[130px] ${isHoverVolume ? 'inline' : 'hidden'}`}
                     />
                 </div>
                 <span onClick={() => setIsShowRightSideBar(prev => !prev)} className='p-1 rounded-md cursor-pointer bg-main-500 opacity-90 hover:opacity-100'>

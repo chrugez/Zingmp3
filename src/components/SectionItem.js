@@ -4,7 +4,7 @@ import icons from '../ultis/icons'
 
 const { AiOutlineHeart, BiPlay, BiDotsHorizontalRounded } = icons
 
-const SectionItem = ({ link, title, thumbnailM, artistsNames, sortDescription, data }) => {
+const SectionItem = ({ link, title, thumbnailM, artistsNames, sortDescription, data, paddingNone }) => {
     const navigate = useNavigate()
     const [isHover, setIsHover] = useState(false)
     const imageRef = useRef()
@@ -24,7 +24,7 @@ const SectionItem = ({ link, title, thumbnailM, artistsNames, sortDescription, d
     return (
         <div
             onClick={() => { navigate(link?.split('.')[0], { state: { playAlbum: false } }) }}
-            className='flex flex-col gap-3 text-sm w-1/5 px-4 cursor-pointer '
+            className={`flex flex-col gap-3 text-sm w-1/5 ${paddingNone ? '' : 'px-4'} cursor-pointer `}
         >
             <div
                 onMouseEnter={handleHover}

@@ -1,4 +1,4 @@
-import { MdOutlineLibraryMusic, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
+import { MdOutlineLibraryMusic, MdSkipNext, MdSkipPrevious, MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md'
 import { PiChartLine, PiShuffleLight, PiMusicNotesSimpleLight, PiPlaylist } from 'react-icons/pi'
 import { TbChartArcs, TbRepeatOnce } from 'react-icons/tb'
 import { MdOutlineFeed } from 'react-icons/md'
@@ -39,6 +39,8 @@ const icons = {
     RiDeleteBin5Line,
     AiOutlineUserAdd,
     AiOutlineClose,
+    MdOutlineArrowBackIos,
+    MdOutlineArrowForwardIos,
 }
 
 export default icons

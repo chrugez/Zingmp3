@@ -33,6 +33,7 @@ const Public = () => {
                     <div className={`h-[70px] ${scrollTop ? 'bg-transparent' : 'bg-main-300'} fixed top-0 left-[240px] right-[329px] px-[59px] z-50 flex items-center`}>
                         <Header />
                     </div>
+                    <div className='w-full h-[20px]'></div>
                     <div className='flex-auto w-full'>
                         <Scrollbars
                             onScroll={handleScrollTop}

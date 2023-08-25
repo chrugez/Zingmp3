@@ -103,7 +103,7 @@ const ZingChart = () => {
     }, [chartData])
 
 
-    // console.log(data);
+    // console.log(chartData);
     return (
         <div className=''>
             <div className='flex flex-col'>
@@ -128,24 +128,33 @@ const ZingChart = () => {
                     </div>
                 </div>
                 <div className='px-[60px] mt-12'>
-                    <RankList data={chartData?.RTChart?.items} />
+                    <RankList data={chartData?.RTChart?.items} number={10} />
                 </div>
                 <div className='relative'>
-                    <img src={bgChart} alt='bg-chart' className='w-full object-cover grayscale' />
+                    <img src={bgChart} alt='bg-chart' className='w-full h-[1000px] object-cover grayscale' />
                     <div className='absolute top-0 left-0 right-0 bottom-0 bg-[rgba(206,217,217,0.9)]'></div>
                     <div className='absolute top-0 left-0 right-0 bottom-1/2 mt-8 flex flex-col gap-8 px-[60px]'>
                         <h3 className='font-bold text-[40px] text-main-500'>Bảng xếp hạng tuần</h3>
                         <div className='flex gap-4'>
-                            {Object.entries(chartData?.weekChart)?.map((item, index) => (
+                            {chartData?.weekChart && Object.entries(chartData?.weekChart)?.map((item, index) => (
                                 <div className='flex-1 bg-gray-200 rounded-md px-[10px] py-5' key={index}>
                                     <h3 className='text-[24px] text-main-500 font-bold'>
                                         {item[0] === 'vn' ? 'Việt Nam' : item[0] === 'us' ? 'US-UK' : item[0] === 'korea' ? 'K-Pop' : ''}
+                                        <div className='mt-4 h-fit'>
+                                            <RankList
+                                                data={item[1]?.items}
+                                                isHideAlbum
+                                                number={5}
+                                                link={item[1].link}
+                                            />
+                                        </div>
                                     </h3>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
+                <div className='w-full h-[500px]'></div>
             </div>
         </div>
     )

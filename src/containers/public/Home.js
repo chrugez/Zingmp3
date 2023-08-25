@@ -27,7 +27,7 @@ const Home = () => {
             </div>
             <Section data={sec6} />
             <Section data={sec7} />
-            <div className='w-full h-[500px]'></div>
+            {/* <div className='w-full h-[500px]'></div> */}
         </div>
     )
 }

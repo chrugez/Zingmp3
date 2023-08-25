@@ -23,7 +23,7 @@ const Public = () => {
     return (
         <div className='w-full relative h-screen flex flex-col bg-main-300'>
             <div className='w-full h-full flex flex-auto'>
-                <div className='w-[240px] flex-none '>
+                <div className='min-[1024]:w-[240px] w-[70px] flex-none '>
                     <SidebarLeft />
                 </div>
                 <div className='flex-auto relative flex flex-col  '>

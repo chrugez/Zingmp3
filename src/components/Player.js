@@ -228,7 +228,7 @@ const Player = ({ setIsShowRightSideBar }) => {
                     <span>{moment.utc(songInfo?.duration * 1000).format('mm:ss')}</span>
                 </div>
             </div>
-            <div className='w-[30%] flex-auto flex items-center justify-end gap-4'>
+            <div className='w-[30%] hidden flex-auto min-[840px]:flex items-center justify-end gap-4'>
                 <div
                     className='flex gap-2 items-center'
                     onMouseEnter={e => setIsHoverVolume(true)}

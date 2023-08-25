@@ -30,7 +30,7 @@ const SidebarRight = () => {
     useEffect(() => {
         isPlaying && setIsRecent(false)
     }, [isPlaying, curSongId])
-    // console.log(curSongData);
+    console.log(recentSongs);
 
     return (
         <div className='flex flex-col text-xs w-full h-full'>
@@ -54,22 +54,37 @@ const SidebarRight = () => {
                 </span>
             </div>
             {isRecent
+                // ? <div className='w-full flex flex-auto flex-col px-3 '>
+                //     <Scrollbars autoHide style={{ width: '100%', height: '100%' }}>
+                //         {recentSongs && <div className='flex flex-col'>
+                //             {recentSongs?.map(item => (
+                //                 <div key={item.sid} className='py-1 '>
+                //                     <SongItem
+                //                         thumbnail={item?.thumbnail}
+                //                         title={item?.title}
+                //                         artists={item?.artists?.length < 2 ? item?.artists?.map(data => data.name) : `${item?.artists?.map(data => {
+                //                             let artistsNames = []
+                //                             artistsNames.push(data?.name)
+                //                             return artistsNames.join(', ')
+                //                         })}`
+                //                         }
+                //                         sid={item?.sid}
+                //                         size={'w-[40px] h-[40px]'}
+                //                     />
+                //                 </div>
+                //             ))}
+                //         </div>}
+                //     </Scrollbars>
+                // </div>
                 ? <div className='w-full flex flex-auto flex-col px-3 '>
                     <Scrollbars autoHide style={{ width: '100%', height: '100%' }}>
                         {recentSongs && <div className='flex flex-col'>
-
                             {recentSongs?.map(item => (
                                 <div key={item.sid} className='py-1 '>
                                     <SongItem
-
                                         thumbnail={item?.thumbnail}
                                         title={item?.title}
-                                        artists={item?.artists?.length < 2 ? item?.artists?.map(data => data.name) : `${item?.artists?.map(data => {
-                                            let artistsNames = []
-                                            artistsNames.push(data?.name)
-                                            return artistsNames.join(', ')
-                                        })}`
-                                        }
+                                        artists={item?.artists?.map(data => data.name)}
                                         sid={item?.sid}
                                         size={'w-[40px] h-[40px]'}
                                     />
